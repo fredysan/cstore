@@ -107,8 +107,6 @@ function cstore_admin_form_submit($form, &$form_state) {
               $instance['settings'] = $field_['settings'];
             }
             
-            
-            
             // It doesn't exist. Create it.
             field_create_instance($instance);
           }
