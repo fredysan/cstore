@@ -27,7 +27,7 @@ function theme_cstore_render_cart_element($variables) {
   }
   // Delete image.
   $vars = array(
-    'path' => base_path() . drupal_get_path('module', 'cstore') . '/images/delete2.png',
+    'path' => base_path() . drupal_get_path('module', 'cstore') . '/images/delete.png',
     'alt' => t('Remove from cart'),
     'title' => t('Remove from cart'),
     'attributes' => array('class' => 'cstore-delete-image-image'),
@@ -64,4 +64,29 @@ function theme_cstore_render_cart_element($variables) {
   $quantity = theme('textfield', $variables['form']);
   // Full view return.
   return $prefix . $quantity . $suffix;
+}
+
+/**
+ * Theme implementation for rendering the total price.
+ * 
+ * @todo find a way to pass $price through the variables array.
+ */
+function theme_cstore_cart_total_price($variables) {
+  $price = cstore_get_total_price();
+  $total = cstore_price_format($price->total);
+  
+  // Building the HTML.
+  $html  = '<div class="cstore-cart-total-price-contents row">';
+  $html .= '  <div class="cstore-total-price cell">' . t('Total price') . ': <strong>' . $total . '</strong></div>';
+  $html .= '</div>';
+  
+  $vat_is_enabled = (int) variable_get('cstore_vat_state');
+  if (!empty ($vat_is_enabled) && $vat_is_enabled) {
+    $vat_value = cstore_price_format($price->vat);
+    $html .= '<div class="cstore-cart-total-vat-contents row">';
+    $html .= '  <div class="cstore-total-vat cell">' . t('Total VAT') . ': <strong>' . $vat_value . '</strong></div>';
+    $html .= '</div>';
+  }
+  
+  return $html;
 }

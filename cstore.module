@@ -246,5 +246,11 @@ function cstore_theme() {
       'function' => 'cstore_add_to_cart_button',
       'variables' => array('path' => NULL, 'css_class' => NULL),
     ),
+    'cstore_render_cart_element' => array(
+      'render element' => 'form',
+    ),
+    'cstore_cart_total_price' => array(
+      'variables' => array('price' => NULL),
+    ),
   );
 }
