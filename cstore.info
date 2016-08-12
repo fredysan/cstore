@@ -1,0 +1,5 @@
+name = Cupcakes Store
+description = Cupcakes Store Challenge
+package = Prodigious
+core = 7.x
+
