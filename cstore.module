@@ -16,7 +16,7 @@ function cstore_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
-  
+
   $items['admin/config/cstore/settings'] = array(
     'title' => 'General settings',
     'page callback' => 'drupal_get_form',
@@ -24,7 +24,7 @@ function cstore_menu() {
     'access arguments' => array('cstore admin'),
     'file' => 'cstore.admin.inc',
   );
-  
+
   $items['admin/config/cstore/theming'] = array(
     'title' => 'Theming settings',
     'page callback' => 'drupal_get_form',
@@ -32,38 +32,37 @@ function cstore_menu() {
     'access arguments' => array('cstore admin'),
     'file' => 'cstore.admin.inc',
   );
-  
+
   /*
-  $items['cart'] = array(
+    $items['cart'] = array(
     'title' => 'Your shopping cart',
     'description' => 'The shopping cart page',
     'page callback' => 'cstore_cart',
     'access arguments' => array('use cupcakes store'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
-  );
+    );
 
-  $items['cart/add'] = array(
+    $items['cart/add'] = array(
     'title' => 'Add to cart',
     'description' => 'Add to cart url.',
     'page callback' => 'cstore_add_to_cart',
     'access arguments' => array('use cupcakes store'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
-  );
+    );
 
-  $items['cart/remove'] = array(
+    $items['cart/remove'] = array(
     'title' => 'Remove from cart',
     'description' => 'Remove from cart url.',
     'page callback' => 'cstore_remove_from_cart',
     'access arguments' => array('use cupcakes store'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
-  );
-  */
+    );
+   */
   return $items;
 }
-
 
 /**
  * Returns the fields we need to create.
@@ -78,6 +77,7 @@ function cstore_get_fields() {
       'type' => 'text',
       'title' => t('Ingredients'),
       'description' => t('Please enter the list of ingredients.'),
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
     ),
     'field_price' => array(
       'type' => 'number_decimal',
@@ -88,6 +88,10 @@ function cstore_get_fields() {
       'type' => 'number_integer',
       'title' => t('Discount'),
       'description' => t('Please enter this item\'s discount.'),
+      'settings' => array(
+        'min' => 0,
+        'max' => 100,
+      ),
     ),
     'field_add_to_cart' => array(
       'type' => 'text',
@@ -97,20 +101,18 @@ function cstore_get_fields() {
   );
 }
 
-
 /**
  * Helper function. Returns an array of types.
- */ 
-function cstore_product_types(){
+ */
+function cstore_product_types() {
   static $types;
-  
+
   if (empty($types)) {
     $types = variable_get('cstore_content_types', array());
   }
-    
+
   return $types;
 }
-
 
 /**
  * Implements hook_form_alter().
@@ -119,13 +121,13 @@ function cstore_product_types(){
  */
 function cstore_form_alter(&$form, &$form_state, $form_id) {
   $types = cstore_product_types();
-  
+
   if (!empty($types) && is_array($types)) {
     $types_ = array();
     foreach ($types as $value) {
       $types_[] = $value . '_node_form';
     }
-    
+
     // Check if we are on a product content type.
     if (in_array($form_id, $types_)) {
       // We are - hiding the add to cart field.
@@ -133,7 +135,6 @@ function cstore_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 }
-
 
 /**
  * Implements hook_field_formatter_info().
@@ -152,14 +153,12 @@ function cstore_field_formatter_info() {
   return $info;
 }
 
-
 function cstore_preprocess_field(&$variables, $hook) {
   $field = $variables['element'];
   if ($field['#field_name'] == 'field_add_to_cart') {
     $variables['items'][] = $field[0];
   }
 }
-
 
 /**
  * Implements hook_field_formatter_settings_form().
@@ -171,14 +170,14 @@ function cstore_field_formatter_settings_form($field, $instance, $view_mode, $fo
   $settings = $display['settings'];
   //Initialize the element variable
   $element = array();
-  
+
   switch ($display['type']) {
     case 'cstore_add_to_cart':
       $element['css_class'] = array(
-        '#type'           => 'textfield',
-        '#title'          => t('CSS class'),
-        '#description'    => t('This class will be added to the button\'s HTML code.'),
-        '#default_value'  => $settings['css_class'],
+        '#type' => 'textfield',
+        '#title' => t('CSS class'),
+        '#description' => t('This class will be added to the button\'s HTML code.'),
+        '#default_value' => $settings['css_class'],
       );
       break;
   }
@@ -192,25 +191,24 @@ function cstore_field_formatter_settings_summary($field, $instance, $view_mode) 
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $summary = '';
-  
+
   switch ($display['type']) {
     case 'cstore_add_to_cart':
       $summary = t('Classes for add to cart button: "@css_class"', array('@css_class' => $settings['css_class']));
       break;
   }
-  
+
   return $summary;
 }
 
-
 /**
-* Implements hook_field_formatter_view().
-*/
+ * Implements hook_field_formatter_view().
+ */
 function cstore_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  
+
   $element = array();
   $settings = $display['settings'];
-  
+
   switch ($display['type']) {
     case 'cstore_add_to_cart':
       if (!empty($items) && is_array($items)) {
@@ -235,7 +233,7 @@ function cstore_field_formatter_view($entity_type, $entity, $field, $instance, $
       }
       break;
   }
-  
+
   return $element;
 }
 
@@ -250,5 +248,3 @@ function cstore_theme() {
     ),
   );
 }
-
-

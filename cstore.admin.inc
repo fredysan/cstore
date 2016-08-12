@@ -74,6 +74,11 @@ function cstore_admin_form_submit($form, &$form_state) {
           'type' => $field_['type'],
           'entity_types' => array('node'),
         );
+        
+        if (isset($field_['cardinality'])) {
+          $field['cardinality'] = $field_['cardinality'];
+        }
+        
         field_create_field($field);
       }
     }
@@ -97,6 +102,13 @@ function cstore_admin_form_submit($form, &$form_state) {
               'entity_type' => 'node',
               'bundle' => $type,
             );
+            
+            if (isset($field_['settings'])) {
+              $instance['settings'] = $field_['settings'];
+            }
+            
+            
+            
             // It doesn't exist. Create it.
             field_create_instance($instance);
           }
