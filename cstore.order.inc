@@ -98,7 +98,20 @@ function cstore_order_checkout_form_submit($form_id, $form_state) {
   
   $oid = db_insert('cstore_order')->fields($order_data)->execute();
   
-  cstore_empty_cart();
+  $cart = cstore_get_cart();
+  foreach ($cart as $nid => $node) {
+    $order_details_data = array(
+      'oid' => $oid,
+      'nid' => $nid,
+      'product' => $node->title,
+      'unit_price' => $node->cstore_unit_price,
+      'quantity' => $node->cstore_quantity,
+    );
+    
+    $odid = db_insert('cstore_order_details')->fields($order_details_data)->execute();
+  }
+  
+  // cstore_empty_cart();
   
   drupal_goto('checkout/done');
 }

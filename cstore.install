@@ -79,6 +79,11 @@ function cstore_schema(){
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
+      'product' => array(
+        'description' => 'Product name.',
+        'type' => 'varchar',
+        'length' => 150,
+      ),
       'unit_price' => array(
         'description' => 'Unit price.',
         'type' => 'float',
