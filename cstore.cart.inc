@@ -83,7 +83,7 @@ function cstore_cart_form_submit($form_id, $form_state) {
     }
   }
 
-  if (module_exists('cstore_order') && $form_state['values']['op'] == t('Checkout')) {
+  if ($form_state['clicked_button']['#id'] == 'edit-buttons-checkout') {
     drupal_goto('checkout');
   }
   else {
@@ -115,8 +115,14 @@ function cstore_add_to_cart($nid = NULL, $quantity = 1) {
       $description = isset($body[0]['value']) ? check_plain(strip_tags($body[0]['value'])) : '';
       $node->cstore_node_description = $description;
       // Unit price.
-      $unit_price = field_get_items('node', $node, 'field_price');
-      $unit_price = isset($unit_price[0]['value']) ? check_plain(strip_tags($unit_price[0]['value'])) : 0;
+      $unit_price_with_discount = field_get_items('node', $node, 'field_discount');
+      if (!empty($unit_price_with_discount)) {
+        $unit_price = isset($unit_price_with_discount[0]['value']) ? check_plain(strip_tags($unit_price_with_discount[0]['value'])) : 0;
+      }
+      else {
+        $unit_price = field_get_items('node', $node, 'field_price');
+        $unit_price = isset($unit_price[0]['value']) ? check_plain(strip_tags($unit_price[0]['value'])) : 0;
+      }
       $node->cstore_unit_price = $unit_price;
 
       // Storing in session.

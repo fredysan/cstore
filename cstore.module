@@ -72,7 +72,6 @@ function cstore_menu() {
  */
 function cstore_get_fields() {
   return array(
-    // TODO: Allow sending settings like number of items
     'field_ingredients' => array(
       'type' => 'text',
       'title' => t('Ingredients'),
@@ -85,13 +84,9 @@ function cstore_get_fields() {
       'description' => t('Please enter this item\'s price.'),
     ),
     'field_discount' => array(
-      'type' => 'number_integer',
-      'title' => t('Discount'),
+      'type' => 'number_decimal',
+      'title' => t('Price with discount'),
       'description' => t('Please enter this item\'s discount.'),
-      'settings' => array(
-        'min' => 0,
-        'max' => 100,
-      ),
     ),
     'field_add_to_cart' => array(
       'type' => 'text',
