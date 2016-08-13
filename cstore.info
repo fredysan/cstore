@@ -3,6 +3,8 @@ description = Cupcakes Store Challenge
 package = Prodigious
 core = 7.x
 
+dependencies[] = views
 configure = admin/config/cstore/settings
-
 stylesheets[all][] = cstore.css
+
+files[] = cstore.views.inc

@@ -271,3 +271,100 @@ function cstore_theme() {
     ),
   );
 }
+
+/**
+* Implementation of hook_views_api().
+*/
+function cstore_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'cstore') . '/views'
+  );
+}
+
+/**
+ * Implement hook_views_data().
+ *
+ */
+
+/* function mymodule_views_data() {
+	$data = array();
+
+	$data['cstore']['table']['group'] = t('Cupcake store');
+	$data['cstore']['table']['join'] = array(
+		'node' => array(
+			'left_table' => 'node_revision',
+			'left_field' => 'vid',
+			'field' => 'revision_id',
+			'type' => 'LEFT',
+		),
+		'node_revision' => array(
+			'left_field' => 'vid',
+			'field' => 'revision_id',
+			'type' => 'LEFT',
+		),
+	);
+	$data['revision_scheduler']['sid'] = array(
+		'title' => t('Revision Schedule ID'),
+		'help' => t('Revision Schedule record ID.'),
+		'filter' => array(
+			'handler' => 'views_handler_filter',
+		),
+		'field' => array(
+			'handler' => 'views_handler_field',
+			'click sortable' => TRUE,
+		),
+		'sort' => array(
+			'handler' => 'views_handler_sort',
+		),
+		'argument' => array(
+			'handler' => 'views_handler_argument',
+		),
+	);
+	$data['revision_scheduler']['operation'] = array(
+		'title' => t('Scheduled operation'),
+		'help' => t('The scheduled moderation operation.'),
+		'filter' => array(
+			'handler' => 'views_handler_filter_string',
+		),
+		'field' => array(
+			'handler' => 'views_handler_field',
+			'click sortable' => TRUE,
+		),
+		'sort' => array(
+			'handler' => 'views_handler_sort',
+		),
+		'argument' => array(
+			'handler' => 'views_handler_argument',
+		),
+	);
+	$data['revision_scheduler']['time_scheduled'] = array(
+		'title' => t('Scheduled date'),
+		'help' => t('The date that this operation is scheduled for.'),
+		'field' => array(
+			'handler' => 'views_handler_field_date',
+			'click sortable' => TRUE,
+		),
+		'sort' => array(
+			'handler' => 'views_handler_sort_date',
+		),
+		'filter' => array(
+			'handler' => 'views_handler_filter_date',
+		),
+	);
+	$data['revision_scheduler']['time_executed'] = array(
+		'title' => t('Executed date'),
+		'help' => t('The date that this operation was executed.'),
+		'field' => array(
+			'handler' => 'views_handler_field_date',
+			'click sortable' => TRUE,
+		),
+		'sort' => array(
+			'handler' => 'views_handler_sort_date',
+		),
+		'filter' => array(
+			'handler' => 'views_handler_filter_date',
+		),
+	);
+	return $data;
+}*/

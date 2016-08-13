@@ -147,7 +147,7 @@ function cstore_order_checkout_receipt($oid) {
     $order['details'][] = $row;
   }
   
-  drupal_set_title(t('Order details'));
+  drupal_set_title(t('Order: ' . $oid));
   
   return theme('cstore_receipt', $order);
 
