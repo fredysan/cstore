@@ -71,10 +71,10 @@ function cstore_menu() {
     'file' => 'cstore.order.inc',
   );
   
-  $items['checkout/done'] = array(
-    'title' => 'Thank you',
+  $items['checkout/receipt/%'] = array(
     'description' => 'Checkout thank you page.',
-    'page callback' => 'cstore_order_checkout_done',
+    'page callback' => 'cstore_order_checkout_receipt',
+    'page arguments' => array(2),
     'access arguments' => array('use cupcakes store'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.order.inc',
@@ -264,6 +264,9 @@ function cstore_theme() {
       'render element' => 'form',
     ),
     'cstore_cart_total_price' => array(
+      'variables' => array('price' => NULL),
+    ),
+    'cstore_receipt' => array(
       'variables' => array('price' => NULL),
     ),
   );

@@ -21,9 +21,9 @@ function cstore_order_checkout() {
  * @param type $form_state
  * @return type
  */
-function cstore_order_checkout_form($form, &$form_state){
+function cstore_order_checkout_form($form, &$form_state) {
   $form = array();
-  
+
   // Total price.
   $form['total_price'] = array(
     '#markup' => t('Total price'),
@@ -31,7 +31,7 @@ function cstore_order_checkout_form($form, &$form_state){
     '#suffix' => '</div>',
     '#theme' => 'cstore_cart_total_price',
   );
-  
+
   $form['customer_id'] = array(
     '#type' => 'textfield',
     '#name' => 'customer_id',
@@ -52,7 +52,7 @@ function cstore_order_checkout_form($form, &$form_state){
     '#title' => t('Email'),
     '#required' => TRUE,
   );
-  
+
   // Buttons.
   $form['buttons'] = array(
     // Make the returned array come back in tree form.
@@ -68,7 +68,7 @@ function cstore_order_checkout_form($form, &$form_state){
     '#type' => 'submit',
     '#value' => t('Enjoy'),
   );
-  
+
   return $form;
 }
 
@@ -80,7 +80,7 @@ function cstore_order_checkout_form($form, &$form_state){
  */
 function cstore_order_checkout_form_submit($form_id, $form_state) {
   global $user;
-  
+
   $customer = array(
     'id' => $form_state['values']['customer_id'],
     'name' => $form_state['values']['customer_name'],
@@ -95,9 +95,9 @@ function cstore_order_checkout_form_submit($form_id, $form_state) {
     'customer_name' => $customer['name'],
     'customer_email' => $customer['email'],
   );
-  
+
   $oid = db_insert('cstore_order')->fields($order_data)->execute();
-  
+
   $cart = cstore_get_cart();
   foreach ($cart as $nid => $node) {
     $order_details_data = array(
@@ -107,20 +107,48 @@ function cstore_order_checkout_form_submit($form_id, $form_state) {
       'unit_price' => $node->cstore_unit_price,
       'quantity' => $node->cstore_quantity,
     );
-    
+
     $odid = db_insert('cstore_order_details')->fields($order_details_data)->execute();
   }
-  
+
   // cstore_empty_cart();
-  
-  drupal_goto('checkout/done');
+
+  drupal_goto('checkout/receipt/' . $oid);
 }
 
 /**
  * 
  * @return type
  */
-function cstore_order_checkout_done() {
-  $message = t('Thank you for your purchase');
-  return filter_xss($message);
+function cstore_order_checkout_receipt($oid) {
+  $message = t('Thank you for your purchase: ' . $oid);
+
+  $query = db_select('cstore_order', 'o');
+  $query->fields('o');
+  $query->condition('o.oid', $oid);
+  $query->range(0, 1);
+  $result = $query->execute();
+  $row = $result->fetchAssoc();
+
+  if (empty($row)) {
+    drupal_set_message(t('There are no orders that coincide with the request parameters'));
+    return '';
+  }
+  
+  $order = $row;
+  $order['details'] = array();
+  
+  $query = db_select('cstore_order_details', 'od');
+  $query->fields('od');
+  $query->condition('od.oid', $oid);
+  $result = $query->execute();
+  
+  while ($row = $result->fetchAssoc()) {
+    $order['details'][] = $row;
+  }
+  
+  drupal_set_title(t('Order details'));
+  
+  return theme('cstore_receipt', $order);
+
 }

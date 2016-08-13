@@ -90,3 +90,8 @@ function theme_cstore_cart_total_price($variables) {
   
   return $html;
 }
+
+function theme_cstore_receipt($order) {
+  $html = '';
+  return $html;
+}
