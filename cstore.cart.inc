@@ -103,31 +103,39 @@ function cstore_add_to_cart($nid = NULL, $quantity = 1) {
   if ($nid > 0 && $quantity > 0) {
     // If a node is added more times, just update the quantity.
     $cart = cstore_get_cart();
-    if (!empty($cart) && in_array($nid, array_keys($cart))) {
-      // Clicked 2 times on add to cart button. Increment quantity.
-      $_SESSION['cstore']['cart'][$nid]->cstore_quantity += $quantity;
+    
+    if (!empty($_SESSION['cstore']['cart'][$nid])) {
+      $node = $_SESSION['cstore']['cart'][$nid];
     }
     else {
       $node = node_load($nid);
+    }
+    
+    if (!empty($cart) && in_array($nid, array_keys($cart))) {
+      // Clicked 2 times on add to cart button. Increment quantity.
+      $node->cstore_quantity += $quantity;
+    }
+    else {
       $node->cstore_quantity = $quantity;
       // Adding description.
       $body = field_get_items('node', $node, 'body');
       $description = isset($body[0]['value']) ? check_plain(strip_tags($body[0]['value'])) : '';
       $node->cstore_node_description = $description;
-      // Unit price.
-      $unit_price_with_discount = field_get_items('node', $node, 'field_discount');
-      if (!empty($unit_price_with_discount)) {
-        $unit_price = isset($unit_price_with_discount[0]['value']) ? check_plain(strip_tags($unit_price_with_discount[0]['value'])) : 0;
-      }
-      else {
-        $unit_price = field_get_items('node', $node, 'field_price');
-        $unit_price = isset($unit_price[0]['value']) ? check_plain(strip_tags($unit_price[0]['value'])) : 0;
-      }
-      $node->cstore_unit_price = $unit_price;
-
-      // Storing in session.
-      $_SESSION['cstore']['cart'][$nid] = $node;
     }
+
+    // Unit price.
+    $unit_price_with_discount = field_get_items('node', $node, 'field_discount');
+    if (!empty($unit_price_with_discount)) {
+      $unit_price = isset($unit_price_with_discount[0]['value']) ? check_plain(strip_tags($unit_price_with_discount[0]['value'])) : 0;
+    }
+    else {
+      $unit_price = field_get_items('node', $node, 'field_price');
+      $unit_price = isset($unit_price[0]['value']) ? check_plain(strip_tags($unit_price[0]['value'])) : 0;
+    }
+    $node->cstore_unit_price = $unit_price;
+
+    // Storing in session.
+    $_SESSION['cstore']['cart'][$nid] = $node;
   }
   drupal_set_message(t('Shopping cart updated.'));
 
@@ -190,7 +198,6 @@ function cstore_get_total_price() {
   // Building the return array.
   $return = array(
     'price' => 0,
-    'vat' => 0,
     'total' => 0,
   );
   $cart = cstore_get_cart();
@@ -206,8 +213,8 @@ function cstore_get_total_price() {
   }
 
   $return['price'] = $total_price;
-
   $return['total'] = $total_price;
+  
   return (object) $return;
 }
 

@@ -60,6 +60,25 @@ function cstore_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
   );
+  
+  $items['checkout'] = array(
+    'title' => 'Checkout',
+    'description' => 'Checkout.',
+    'page callback' => 'cstore_order_checkout',
+    'page arguments' => array('cstore_order_checkout_form'),
+    'access arguments' => array('use cupcakes store'),
+    'type' => MENU_CALLBACK,
+    'file' => 'cstore.order.inc',
+  );
+  
+  $items['checkout/done'] = array(
+    'title' => 'Thank you',
+    'description' => 'Checkout thank you page.',
+    'page callback' => 'cstore_order_checkout_done',
+    'access arguments' => array('use cupcakes store'),
+    'type' => MENU_CALLBACK,
+    'file' => 'cstore.order.inc',
+  );
 
   return $items;
 }

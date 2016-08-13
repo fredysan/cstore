@@ -1,0 +1,169 @@
+/**
+ * Basic cart css file
+ */
+
+.cstore-grid {
+  border: none;
+  color: #363636;
+  display: table;
+  margin: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.cstore-grid .row {
+  display: table-row;
+  float: left;
+  left: 100%;
+  width: 100%;
+}
+
+.cstore-grid .cell {
+  display: table-cell;
+  float: left;
+}
+
+.cstore-grid .cell img {
+  vertical-align: middle;
+}
+
+.cstore-grid .clr {
+  border-bottom: 1px solid #eeeeee;
+  display: table-row;
+  float: left;
+  left: 100%;
+  width: 100%;
+}
+
+.cstore-grid form {
+  margin: 0;
+  padding: 0;
+}
+
+.cstore-add-to-cart {
+  margin: 10px 0;
+}
+
+.cstore-cart {
+  margin: 0 0 25px 0;
+  width: 100%;
+}
+
+.cstore-cart-contents {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+.cstore-cart-total-price-contents {
+  padding: 5px;
+}
+
+.cstore-delete-image.cell {
+  margin: 0 10px 0 0;
+}
+
+.cstore-cart-checkout-button {
+  margin: 10px 0;
+}
+
+.cstore-cart-checkout-button a.button {
+  float: right;
+  margin-right: 0;
+}
+
+.cstore-cart-checkout-button-block {
+  margin: 10px 0 0 0;
+}
+
+.cstore-cart-checkout-button-block a.button {
+  margin-bottom: 0;
+}
+
+.cstore-cart-quantity.cell {
+  float: right;
+}
+
+.cstore-cart-node-title {
+  width: auto;
+}
+
+.cstore-cart-x.cell {
+  float: right;
+  padding: 1px 10px 3px 10px;
+}
+
+.cstore-cart-unit-price.cell {
+  float: right;
+  margin: 0;
+  text-align: right;
+  width: 100px;
+}
+
+.cstore-block .cstore-cart-node-title {
+  width: 100%;
+}
+
+.cstore-block .cstore-cart-unit-price,
+.cstore-block .cstore-cart-x,
+.cstore-block .cstore-cart-quantity {
+  float: left;
+  text-align: right;
+  width: auto;
+}
+
+.cstore-total-price.cell,
+.cstore-total-vat.cell {
+  float: right;
+}
+
+.cstore-cart-total-vat-contents,
+.cstore-block-total-vat-contents {
+  padding: 0 5px;
+}
+
+.cstore-total-vat.cell {
+  color: #6C6C6C;
+  font-size: 11px;
+}
+
+.cstore-order-details td {
+  border: 1px solid #ccc;
+}
+
+.cstore-order-label {
+  background-color: #efefef;
+  font-weight: bold;
+  width: 100px;
+}
+
+.cstore-order-value {
+  background-color: #fff;
+}
+
+.cstore-order-product-price,
+.cstore-order-total-price {
+  float: right;
+}
+
+.cstore-order-vat {
+  float: right;
+  font-weight: normal;
+}
+
+.cstore-call-to-action {
+  text-align: right;
+}
+
+.form-item-cstore-checkout-city {
+  float: left;
+  width: 350px;
+}
+
+.form-item-cstore-checkout-zipcode {
+  float: left;
+  width: 150px;
+}
+
+.form-item-cstore-checkout-message {
+  clear: both;
+}
