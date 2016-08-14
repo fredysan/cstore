@@ -53,9 +53,37 @@ function cstore_views_data() {
     ),
   );
   // Customer name
+  $data['cstore_order']['customer_id'] = array(
+    'title' => t('Customer identification'),
+    'help' => t('Order customer identification'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+  // Customer name
   $data['cstore_order']['customer_name'] = array(
     'title' => t('Customer name'),
     'help' => t('Order customer name'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+  // Customer name
+  $data['cstore_order']['customer_email'] = array(
+    'title' => t('Customer email'),
+    'help' => t('Order customer email'),
     'field' => array(
       'handler' => 'views_handler_field',
     ),
@@ -173,3 +201,20 @@ function cstore_views_data() {
 
   return $data;
 }
+
+
+/**
+* Implements of hook_views_default_views().
+**/
+function cstore_views_default_views() {
+  $files = file_scan_directory(drupal_get_path('module', 'cstore'). '/views', '/.*\.view$/');
+  foreach ($files as $filepath => $file) {
+    require $filepath;
+    if (isset($view)) {
+      $views[$view->name] = $view;
+    }
+  }
+  return $views;
+}
+
+

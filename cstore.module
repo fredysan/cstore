@@ -117,8 +117,8 @@ function cstore_menu() {
   );
 
   $items['admin/cstore/orders'] = array(
-    'title' => 'Check orders',
-    'description' => 'Check orders.',
+    'title' => 'Orders',
+    'description' => 'List of orders',
     'page callback' => 'cstore_display_orders_view',
     'access arguments' => array('administer cstore'),
     'type' => MENU_NORMAL_ITEM,
@@ -143,9 +143,18 @@ function cstore_menu() {
   );
   
   $items['admin/cstore/reports/ranking'] = array(
-    'title' => 'Ranking',
-    'description' => 'Ranking',
+    'title' => 'Cupcakes ranking',
+    'description' => 'Cupcakes ranking',
     'page callback' => 'cstore_reports_ranking_sales',
+    'access arguments' => array('administer cstore'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'cstore.report.inc',
+  );
+  
+  $items['admin/cstore/reports/orders-per-client'] = array(
+    'title' => 'Orders per client',
+    'description' => 'Orders per client',
+    'page callback' => 'cstore_reports_orders_per_client',
     'access arguments' => array('administer cstore'),
     'type' => MENU_NORMAL_ITEM,
     'file' => 'cstore.report.inc',
@@ -353,7 +362,9 @@ function cstore_views_api() {
   );
 }
 
-
+/**
+ * 
+ */
 function cstore_display_orders_view() {
   drupal_goto('/cstore/orders');
 }

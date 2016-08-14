@@ -1,0 +1,271 @@
+<?php
+
+$view = new view();
+$view->name = 'orders';
+$view->description = '';
+$view->tag = 'cstore';
+$view->base_table = 'cstore_order';
+$view->human_name = 'Orders';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Orders';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'administer cstore';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'customer_id',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+  1 => array(
+    'field' => 'nothing',
+    'rendered' => 0,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['columns'] = array(
+  'customer_id' => 'customer_id',
+  'customer_name' => 'customer_name',
+  'nothing' => 'nothing',
+  'oid' => 'oid',
+  'created' => 'created',
+  'total' => 'total',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'customer_id' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'customer_name' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'nothing' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'oid' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'total' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+/* Field: Orders: Customer identification */
+$handler->display->display_options['fields']['customer_id']['id'] = 'customer_id';
+$handler->display->display_options['fields']['customer_id']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_id']['field'] = 'customer_id';
+/* Field: Orders: Customer name */
+$handler->display->display_options['fields']['customer_name']['id'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_name']['field'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['element_label_colon'] = FALSE;
+/* Field: Global: Custom text */
+$handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['table'] = 'views';
+$handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['label'] = 'Client';
+/* Field: Orders: Order id */
+$handler->display->display_options['fields']['oid']['id'] = 'oid';
+$handler->display->display_options['fields']['oid']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['oid']['field'] = 'oid';
+$handler->display->display_options['fields']['oid']['alter']['make_link'] = TRUE;
+$handler->display->display_options['fields']['oid']['alter']['path'] = 'cstore/receipt/[oid]';
+/* Field: Orders: Creation date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+$handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+/* Field: Orders: Total price */
+$handler->display->display_options['fields']['total']['id'] = 'total';
+$handler->display->display_options['fields']['total']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['total']['field'] = 'total';
+$handler->display->display_options['fields']['total']['element_label_colon'] = FALSE;
+/* Sort criterion: Orders: Creation date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'cstore_order';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+$handler->display->display_options['sorts']['created']['granularity'] = 'month';
+/* Filter criterion: Orders: Customer identification */
+$handler->display->display_options['filters']['customer_id']['id'] = 'customer_id';
+$handler->display->display_options['filters']['customer_id']['table'] = 'cstore_order';
+$handler->display->display_options['filters']['customer_id']['field'] = 'customer_id';
+$handler->display->display_options['filters']['customer_id']['exposed'] = TRUE;
+$handler->display->display_options['filters']['customer_id']['expose']['operator_id'] = 'customer_id_op';
+$handler->display->display_options['filters']['customer_id']['expose']['label'] = 'Client Id';
+$handler->display->display_options['filters']['customer_id']['expose']['operator'] = 'customer_id_op';
+$handler->display->display_options['filters']['customer_id']['expose']['identifier'] = 'customer_id';
+$handler->display->display_options['filters']['customer_id']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+);
+
+/* Display: List */
+$handler = $view->new_display('page', 'List', 'page');
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Orders: Order id */
+$handler->display->display_options['fields']['oid']['id'] = 'oid';
+$handler->display->display_options['fields']['oid']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['oid']['field'] = 'oid';
+$handler->display->display_options['fields']['oid']['alter']['make_link'] = TRUE;
+$handler->display->display_options['fields']['oid']['alter']['path'] = 'cstore/receipt/[oid]';
+/* Field: Orders: Customer name */
+$handler->display->display_options['fields']['customer_name']['id'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_name']['field'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['element_label_colon'] = FALSE;
+/* Field: Orders: Creation date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+$handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+/* Field: Orders: Total price */
+$handler->display->display_options['fields']['total']['id'] = 'total';
+$handler->display->display_options['fields']['total']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['total']['field'] = 'total';
+$handler->display->display_options['fields']['total']['element_label_colon'] = FALSE;
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Orders: Creation date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'cstore_order';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+$handler->display->display_options['sorts']['created']['granularity'] = 'month';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Orders: Order id */
+$handler->display->display_options['filters']['oid']['id'] = 'oid';
+$handler->display->display_options['filters']['oid']['table'] = 'cstore_order';
+$handler->display->display_options['filters']['oid']['field'] = 'oid';
+$handler->display->display_options['filters']['oid']['exposed'] = TRUE;
+$handler->display->display_options['filters']['oid']['expose']['operator_id'] = 'oid_op';
+$handler->display->display_options['filters']['oid']['expose']['label'] = 'Order id';
+$handler->display->display_options['filters']['oid']['expose']['operator'] = 'oid_op';
+$handler->display->display_options['filters']['oid']['expose']['identifier'] = 'oid';
+$handler->display->display_options['filters']['oid']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+);
+$handler->display->display_options['path'] = 'cstore/orders';
+
+/* Display: Monthly sales */
+$handler = $view->new_display('page', 'Monthly sales', 'page_1');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Monthly sales';
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Orders: Creation date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['label'] = 'Month';
+$handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['created']['date_format'] = 'monthly';
+$handler->display->display_options['fields']['created']['custom_date_format'] = 'F Y';
+$handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+$handler->display->display_options['fields']['created']['format_date_sql'] = 1;
+/* Field: SUM(Orders: Total price) */
+$handler->display->display_options['fields']['total']['id'] = 'total';
+$handler->display->display_options['fields']['total']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['total']['field'] = 'total';
+$handler->display->display_options['fields']['total']['group_type'] = 'sum';
+$handler->display->display_options['fields']['total']['label'] = 'Total';
+$handler->display->display_options['fields']['total']['element_label_colon'] = FALSE;
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Orders: Creation date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'cstore_order';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+$handler->display->display_options['sorts']['created']['granularity'] = 'month';
+$handler->display->display_options['path'] = 'cstore/reports/monthly-sales';
+
+/* Display: Per client */
+$handler = $view->new_display('page', 'Per client', 'page_2');
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Orders: Customer identification */
+$handler->display->display_options['fields']['customer_id']['id'] = 'customer_id';
+$handler->display->display_options['fields']['customer_id']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_id']['field'] = 'customer_id';
+$handler->display->display_options['fields']['customer_id']['label'] = '';
+$handler->display->display_options['fields']['customer_id']['exclude'] = TRUE;
+$handler->display->display_options['fields']['customer_id']['element_label_colon'] = FALSE;
+/* Field: Orders: Customer name */
+$handler->display->display_options['fields']['customer_name']['id'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_name']['field'] = 'customer_name';
+$handler->display->display_options['fields']['customer_name']['exclude'] = TRUE;
+$handler->display->display_options['fields']['customer_name']['element_label_colon'] = FALSE;
+/* Field: Orders: Customer email */
+$handler->display->display_options['fields']['customer_email']['id'] = 'customer_email';
+$handler->display->display_options['fields']['customer_email']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['customer_email']['field'] = 'customer_email';
+$handler->display->display_options['fields']['customer_email']['exclude'] = TRUE;
+/* Field: Global: Custom text */
+$handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['table'] = 'views';
+$handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['label'] = '';
+$handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
+$handler->display->display_options['fields']['nothing']['alter']['text'] = '<div>[customer_email]</div><div>[customer_name]</div>';
+$handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+/* Field: Orders: Order id */
+$handler->display->display_options['fields']['oid']['id'] = 'oid';
+$handler->display->display_options['fields']['oid']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['oid']['field'] = 'oid';
+$handler->display->display_options['fields']['oid']['alter']['make_link'] = TRUE;
+$handler->display->display_options['fields']['oid']['alter']['path'] = 'cstore/receipt/[oid]';
+/* Field: Orders: Creation date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+$handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+/* Field: Orders: Total price */
+$handler->display->display_options['fields']['total']['id'] = 'total';
+$handler->display->display_options['fields']['total']['table'] = 'cstore_order';
+$handler->display->display_options['fields']['total']['field'] = 'total';
+$handler->display->display_options['fields']['total']['element_label_colon'] = FALSE;
+$handler->display->display_options['path'] = 'cstore/reports/orders-per-client';
+$handler->display->display_options['menu']['title'] = 'Orders per client';
+$handler->display->display_options['menu']['description'] = 'Orders per client';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;

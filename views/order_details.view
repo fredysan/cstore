@@ -1,0 +1,60 @@
+<?php
+
+$view = new view();
+$view->name = 'details';
+$view->description = '';
+$view->tag = 'cstore';
+$view->base_table = 'cstore_order_details';
+$view->human_name = 'Order details';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Cupcakes ranking';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['access']['type'] = 'none';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'product' => 'product',
+  'quantity' => 'quantity',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'product' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'quantity' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+/* Field: Order details: Product name */
+$handler->display->display_options['fields']['product']['id'] = 'product';
+$handler->display->display_options['fields']['product']['table'] = 'cstore_order_details';
+$handler->display->display_options['fields']['product']['field'] = 'product';
+/* Field: SUM(Order details: Quantity) */
+$handler->display->display_options['fields']['quantity']['id'] = 'quantity';
+$handler->display->display_options['fields']['quantity']['table'] = 'cstore_order_details';
+$handler->display->display_options['fields']['quantity']['field'] = 'quantity';
+$handler->display->display_options['fields']['quantity']['group_type'] = 'sum';
+/* Sort criterion: SUM(Order details: Quantity) */
+$handler->display->display_options['sorts']['quantity']['id'] = 'quantity';
+$handler->display->display_options['sorts']['quantity']['table'] = 'cstore_order_details';
+$handler->display->display_options['sorts']['quantity']['field'] = 'quantity';
+$handler->display->display_options['sorts']['quantity']['group_type'] = 'sum';
+$handler->display->display_options['sorts']['quantity']['order'] = 'DESC';
+
+/* Display: ranking */
+$handler = $view->new_display('page', 'ranking', 'page');
+$handler->display->display_options['path'] = 'cstore/reports/cupcakes-ranking';
