@@ -3,6 +3,22 @@
 require_once dirname(__FILE__) . '/cstore.theme.inc';
 
 /**
+ * Implements hook_permissions
+ */
+function cstore_permission() {
+  return array(
+    'administer cstore' => array(
+      'title' => t('Administer cstore'),
+      'description' => t('Administer cstore'),
+    ),
+    'use cstore' => array(
+      'title' => t('Use cstore'),
+      'description' => t('Use cstore'),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function cstore_menu() {
@@ -12,7 +28,7 @@ function cstore_menu() {
     'position' => 'left',
     'weight' => -100,
     'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer site configuration'),
+    'access arguments' => array('administer cstore'),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
@@ -21,7 +37,7 @@ function cstore_menu() {
     'title' => 'General settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cstore_admin_form'),
-    'access arguments' => array('cstore admin'),
+    'access arguments' => array('administer cstore'),
     'file' => 'cstore.admin.inc',
   );
 
@@ -29,7 +45,7 @@ function cstore_menu() {
     'title' => 'Theming settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cstore_admin_theming_form'),
-    'access arguments' => array('cstore admin'),
+    'access arguments' => array('administer cstore'),
     'file' => 'cstore.admin.inc',
   );
 
@@ -38,7 +54,7 @@ function cstore_menu() {
     'title' => 'Your shopping cart',
     'description' => 'The shopping cart page',
     'page callback' => 'cstore_cart',
-    'access arguments' => array('use cupcakes store'),
+    'access arguments' => array('use cstore'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
   );
@@ -47,7 +63,7 @@ function cstore_menu() {
     'title' => 'Add to cart',
     'description' => 'Add to cart url.',
     'page callback' => 'cstore_add_to_cart',
-    'access arguments' => array('use cupcakes store'),
+    'access arguments' => array('use cstore'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
   );
@@ -56,26 +72,26 @@ function cstore_menu() {
     'title' => 'Remove from cart',
     'description' => 'Remove from cart url.',
     'page callback' => 'cstore_remove_from_cart',
-    'access arguments' => array('use cupcakes store'),
+    'access arguments' => array('use cstore'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.cart.inc',
   );
-  
+
   $items['checkout'] = array(
     'title' => 'Checkout',
     'description' => 'Checkout.',
     'page callback' => 'cstore_order_checkout',
     'page arguments' => array('cstore_order_checkout_form'),
-    'access arguments' => array('use cupcakes store'),
+    'access arguments' => array('use cstore'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.order.inc',
   );
-  
+
   $items['checkout/receipt/%'] = array(
     'description' => 'Checkout thank you page.',
     'page callback' => 'cstore_order_checkout_receipt',
     'page arguments' => array(2),
-    'access arguments' => array('use cupcakes store'),
+    'access arguments' => array('use cstore'),
     'type' => MENU_CALLBACK,
     'file' => 'cstore.order.inc',
   );
@@ -273,8 +289,8 @@ function cstore_theme() {
 }
 
 /**
-* Implementation of hook_views_api().
-*/
+ * Implementation of hook_views_api().
+ */
 function cstore_views_api() {
   return array(
     'api' => 3.0,
