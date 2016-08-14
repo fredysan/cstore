@@ -95,6 +95,61 @@ function cstore_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'cstore.order.inc',
   );
+  
+  $items['cstore/receipt/%'] = array(
+    'description' => 'Checkout thank you page.',
+    'page callback' => 'cstore_order_checkout_receipt',
+    'page arguments' => array(2),
+    'access arguments' => array('administer cstore'),
+    'type' => MENU_CALLBACK,
+    'file' => 'cstore.order.inc',
+  );
+  
+  $items['admin/cstore'] = array(
+    'title' => 'Cupcakes Store',
+    'description' => 'Cupscakes Store Main menu',
+    'position' => 'left',
+    'weight' => -100,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer cstore'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['admin/cstore/orders'] = array(
+    'title' => 'Check orders',
+    'description' => 'Check orders.',
+    'page callback' => 'cstore_display_orders_view',
+    'access arguments' => array('administer cstore'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['admin/cstore/reports'] = array(
+    'title' => 'Reports',
+    'description' => 'Reports',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer cstore'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  
+  $items['admin/cstore/reports/monthly-sales'] = array(
+    'title' => 'Monthly sales',
+    'description' => 'Monthly sales',
+    'page callback' => 'cstore_reports_monthy_sales',
+    'access arguments' => array('administer cstore'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'cstore.report.inc',
+  );
+  
+  $items['admin/cstore/reports/ranking'] = array(
+    'title' => 'Ranking',
+    'description' => 'Ranking',
+    'page callback' => 'cstore_reports_ranking_sales',
+    'access arguments' => array('administer cstore'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'cstore.report.inc',
+  );
 
   return $items;
 }
@@ -296,4 +351,9 @@ function cstore_views_api() {
     'api' => 3.0,
     'path' => drupal_get_path('module', 'cstore') . '/views'
   );
+}
+
+
+function cstore_display_orders_view() {
+  drupal_goto('/cstore/orders');
 }

@@ -43,7 +43,7 @@ function cstore_views_data() {
     'title' => t('Creation date'),
     'help' => t('Order creation date'),
     'field' => array(
-      'handler' => 'views_handler_field_date',
+      'handler' => 'views_date_format_sql_handler_field_date',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort_date',
@@ -94,6 +94,12 @@ function cstore_views_data() {
     'help' => t('The order id from details'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+      'name field' => 'title',
+      'numeric' => TRUE,
+      'validate type' => 'nid',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',

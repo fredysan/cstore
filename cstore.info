@@ -7,4 +7,5 @@ dependencies[] = views
 configure = admin/config/cstore/settings
 stylesheets[all][] = cstore.css
 
-files[] = cstore.views.inc
+files[] = views/cstore.views.inc
+files[] = views/views_date_format_sql_handler_field_date.inc
