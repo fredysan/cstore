@@ -212,6 +212,8 @@ $handler->display->display_options['sorts']['created']['table'] = 'cstore_order'
 $handler->display->display_options['sorts']['created']['field'] = 'created';
 $handler->display->display_options['sorts']['created']['order'] = 'DESC';
 $handler->display->display_options['sorts']['created']['granularity'] = 'month';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
 $handler->display->display_options['path'] = 'cstore/reports/monthly-sales';
 
 /* Display: Per client */
@@ -263,9 +265,3 @@ $handler->display->display_options['fields']['total']['table'] = 'cstore_order';
 $handler->display->display_options['fields']['total']['field'] = 'total';
 $handler->display->display_options['fields']['total']['element_label_colon'] = FALSE;
 $handler->display->display_options['path'] = 'cstore/reports/orders-per-client';
-$handler->display->display_options['menu']['title'] = 'Orders per client';
-$handler->display->display_options['menu']['description'] = 'Orders per client';
-$handler->display->display_options['menu']['weight'] = '0';
-$handler->display->display_options['menu']['name'] = 'management';
-$handler->display->display_options['menu']['context'] = 0;
-$handler->display->display_options['menu']['context_only_inline'] = 0;

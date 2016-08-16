@@ -11,6 +11,10 @@ function cstore_permission() {
       'title' => t('Administer cstore'),
       'description' => t('Administer cstore'),
     ),
+    'config cstore' => array(
+      'title' => t('Configure cstore'),
+      'description' => t('Configure cstore'),
+    ),
     'use cstore' => array(
       'title' => t('Use cstore'),
       'description' => t('Use cstore'),
@@ -28,7 +32,7 @@ function cstore_menu() {
     'position' => 'left',
     'weight' => -100,
     'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer cstore'),
+    'access arguments' => array('config cstore'),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
@@ -37,18 +41,9 @@ function cstore_menu() {
     'title' => 'General settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cstore_admin_form'),
-    'access arguments' => array('administer cstore'),
+    'access arguments' => array('config cstore'),
     'file' => 'cstore.admin.inc',
   );
-
-  $items['admin/config/cstore/theming'] = array(
-    'title' => 'Theming settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('cstore_admin_theming_form'),
-    'access arguments' => array('administer cstore'),
-    'file' => 'cstore.admin.inc',
-  );
-
 
   $items['cart'] = array(
     'title' => 'Your shopping cart',
@@ -171,12 +166,6 @@ function cstore_menu() {
  */
 function cstore_get_fields() {
   return array(
-    'field_ingredients' => array(
-      'type' => 'text',
-      'title' => t('Ingredients'),
-      'description' => t('Please enter the list of ingredients.'),
-      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
-    ),
     'field_price' => array(
       'type' => 'number_decimal',
       'title' => t('Price'),

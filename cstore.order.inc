@@ -111,7 +111,7 @@ function cstore_order_checkout_form_submit($form_id, $form_state) {
     $odid = db_insert('cstore_order_details')->fields($order_details_data)->execute();
   }
 
-  // cstore_empty_cart();
+  cstore_empty_cart();
 
   drupal_goto('checkout/receipt/' . $oid);
 }
